@@ -15,14 +15,16 @@ struct Event {
     string endTime;
     string hallName;
     string organizer;
+    double ticketPrice;
 };
 
 //Event Management functions declarations
 void loadEvents(vector<Event>& events);
 void saveEvents(const vector<Event>& events);
 void addEvent(vector<Event>& events, const vector<Venue>& venues);
-void viewEvents(const vector<Event>& events);
-void updateEvent(vector<Event>& events);
+void viewEvents(const vector<Event>& events, const vector<Venue>& venues);
+void viewEventsByOrganizer(const vector<Event>& events, const vector<Venue>& venues, const string& organizerName);
+void updateEvent(vector<Event>& events, const vector<Venue>& venues);
 void removeEvent(vector<Event>& events);
 bool isConflict(const vector<Event>& events, const string& date, const string& startTime, const string& endTime, const string& hallName);
 bool isValidDate(const string& date);
