@@ -118,15 +118,23 @@ void eventManagementMenu(vector<Event>& events, const vector<Venue>& venues) {
         cin >> eventChoice;
         cout << endl;
         switch (eventChoice) {
-        case 1: addEvent(events, venues); break;
-        case 2: viewEvents(events); break;
-        case 3: updateEvent(events); break;
-        case 4: removeEvent(events); break;
+        case 1:
+            addEvent(events, venues);
+            saveEvents(events);
+            break;
+        case 2:
+            viewEvents(events, venues);
+            break;
+        case 3: updateEvent(events, venues); saveEvents(events); break;
+        case 4:
+            removeEvent(events);
+            saveEvents(events);
+            break;
         case 0: break;
         default:
             cout << "Invalid choice. Please try again.\n";
         }
-    } while (eventChoice != 5);
+    } while (eventChoice != 0);
 }
 
 void VenueManagementMenu(vector<Venue>& venues, const string& filename)
@@ -196,7 +204,7 @@ void organizerMenu(vector<Event>& events, const vector<Venue>& venues) {
         cout << "| 1. Schedule Event                         |\n";
         cout << "| 2. View My Events                         |\n";
         cout << "| 3. Make Payment                           |\n";
-        cout << "| 4. Go Back                                |\n";
+        cout << "| 0. Go Back                                |\n";
         cout << "==============================================\n";
         cout << "Enter choice: ";
         cin >> choice;
@@ -206,14 +214,22 @@ void organizerMenu(vector<Event>& events, const vector<Venue>& venues) {
             addEvent(events, venues);
             saveEvents(events);
             break;
-        case 2:
-            viewEventsByOrganizer(events);
+        case 2: {
+            string organizerName;
+            cout << "Enter your organizer name: ";
+            cin.ignore();
+            getline(cin, organizerName);
+            for (size_t k = 0; k < organizerName.size(); ++k) {
+                organizerName[k] = toupper(organizerName[k]);
+            }
+            viewEventsByOrganizer(events, venues, organizerName);
             break;
+        }
         case 3:
             // Make Payment (empty for now)
             cout << "Payment feature coming soon!\n";
             break;
-        case 4:
+        case 0:
             break;
         default:
             cout << "Invalid choice. Please try again.\n";

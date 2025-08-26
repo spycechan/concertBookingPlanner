@@ -1,4 +1,5 @@
 #include "VenueManagement.h"
+#include "EventManagement.h"
 #include <iostream>
 #include <iomanip>
 #include <string>
@@ -173,6 +174,22 @@ void venueDeletion(vector<Venue>& venues, const string& venueFile)
 	string confirmation;
 	cout << "Please enter 'CONFIRM'to confirm deletion :";
 	getline(cin, confirmation);
+
+	// Load events and check if any use this venue
+	vector<Event> events;
+	loadEvents(events);
+	bool venueInUse = false;
+	for (size_t i = 0; i < events.size(); ++i) {
+		const Event& event = events[i];
+		if (event.hallName == venues[index].venueName) {
+			venueInUse = true;
+			break;
+		}
+	}
+	if (venueInUse) {
+		cout << "Cannot remove venue. There are events scheduled at this venue.\n";
+		return;
+	}
 
 	if (confirmation == "CONFIRM")
 	{

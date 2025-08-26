@@ -1,2 +1,7 @@
-﻿  VenueManagement.cpp
-  VenueManagement.vcxproj -> C:\Users\event\source\repos\VenueManagement\x64\Debug\VenueManagement.exe
+﻿  OrganizerManagement.cpp
+  EventManagement.cpp
+  Main.cpp
+  VenueManagement.cpp
+  Generating Code...
+  LINK : C:\Users\event\Downloads\VenueManagement\x64\Debug\VenueManagement.exe not found or not built by the last incremental link; performing full link
+  VenueManagement.vcxproj -> C:\Users\event\Downloads\VenueManagement\x64\Debug\VenueManagement.exe
