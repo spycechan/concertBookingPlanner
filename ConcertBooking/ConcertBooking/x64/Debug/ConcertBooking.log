@@ -1,0 +1,12 @@
+﻿  EventManagement.cpp
+  Main.cpp
+  OrganizerManagement.cpp
+  Report.cpp
+C:\Users\event\Downloads\ConcertBooking\ConcertBooking\Report.cpp(178,15): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\event\Downloads\ConcertBooking\ConcertBooking\Report.cpp(233,15): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  TicketManagement.cpp
+C:\Users\event\Downloads\ConcertBooking\ConcertBooking\TicketManagement.cpp(12,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\event\Downloads\ConcertBooking\ConcertBooking\TicketManagement.cpp(29,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  VenueManagement.cpp
+  Generating Code...
+  ConcertBooking.vcxproj -> C:\Users\event\Downloads\ConcertBooking\x64\Debug\ConcertBooking.exe
