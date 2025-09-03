@@ -1,0 +1,47 @@
+================= Event Report =================
+
+Event Name   : Ado Tour
+Organizer    : EVEN
+Date         : 2025-09-25
+Time         : 18:00 - 23:00
+Hall         : Setia Spice
+Ticket Price : 100.5
+Tickets Sold : 1
+Revenue      : 100.5
+---------------------------------------------
+Event Name   : Gun's n Roses Tour
+Organizer    : DARREN
+Date         : 2025-09-20
+Time         : 09:00 - 17:00
+Hall         : Setia Spice
+Ticket Price : 150
+Tickets Sold : 2
+Revenue      : 300
+---------------------------------------------
+Event Name   : Coldplay Party
+Organizer    : DIMITRI
+Date         : 2025-12-10
+Time         : 09:00 - 17:00
+Hall         : Queensbay Mall
+Ticket Price : 250
+Tickets Sold : 0
+Revenue      : 0
+---------------------------------------------
+Event Name   : Miku Concert
+Organizer    : JONATHAN
+Date         : 2025-10-27
+Time         : 18:00 - 23:00
+Hall         : Sunway Carnival Mall
+Ticket Price : 200
+Tickets Sold : 1
+Revenue      : 200
+---------------------------------------------
+Event Name   : Travis Tour
+Organizer    : JONATHAN
+Date         : 2025-11-11
+Time         : 18:00 - 23:00
+Hall         : Queensbay Mall
+Ticket Price : 300
+Tickets Sold : 0
+Revenue      : 0
+---------------------------------------------
