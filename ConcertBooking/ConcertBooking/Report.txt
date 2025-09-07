@@ -1,47 +1,200 @@
 ================= Event Report =================
 
-Event Name   : Ado Tour
+Event Name   : LISA Tour
 Organizer    : EVEN
-Date         : 2025-09-25
-Time         : 18:00 - 23:00
-Hall         : Setia Spice
-Ticket Price : 100.5
-Tickets Sold : 1
-Revenue      : 100.5
+Date         : 2024-12-12
+Time         : 09:00 - 17:00
+Hall         : KL Arena
+Ticket Price : 20
+Tickets Sold : 3
+Revenue      : 60
 ---------------------------------------------
-Event Name   : Gun's n Roses Tour
+Event Name   : AIMER Tour
 Organizer    : DARREN
+Date         : 2025-12-12
+Time         : 09:00 - 17:00
+Hall         : KL Arena
+Ticket Price : 20
+Tickets Sold : 3
+Revenue      : 60
+---------------------------------------------
+Event Name   : KNY Tour
+Organizer    : UFOTABLE
+Date         : 2025-12-12
+Time         : 09:00 - 17:00
+Hall         : Axiata Arena
+Ticket Price : 50
+Tickets Sold : 2
+Revenue      : 100
+---------------------------------------------
+Event Name   : ADO Tour
+Organizer    : JONATHAN
+Date         : 2025-12-12
+Time         : 09:00 - 17:00
+Hall         : Mega Star Arena
+Ticket Price : 30
+Tickets Sold : 2
+Revenue      : 60
+---------------------------------------------
+Event Name   : TWICE Tour
+Organizer    : JYP ENT
+Date         : 2025-12-12
+Time         : 18:00 - 23:00
+Hall         : Mega Star Arena
+Ticket Price : 160
+Tickets Sold : 5
+Revenue      : 800
+---------------------------------------------
+Event Name   : K-Pop Global Wave
+Organizer    : SEOULVIBE ENT.
+Date         : 2025-10-20
+Time         : 18:00 - 23:00
+Hall         : Axiata Arena
+Ticket Price : 150
+Tickets Sold : 4
+Revenue      : 600
+---------------------------------------------
+Event Name   : T.Swift Tour
+Organizer    : STARPRO
 Date         : 2025-09-20
 Time         : 09:00 - 17:00
-Hall         : Setia Spice
+Hall         : Portland Arena
+Ticket Price : 185
+Tickets Sold : 2
+Revenue      : 370
+---------------------------------------------
+Event Name   : BTS Tour
+Organizer    : BIGHIT.ENT
+Date         : 2025-10-26
+Time         : 18:00 - 23:00
+Hall         : Mega Star Arena
+Ticket Price : 220
+Tickets Sold : 15
+Revenue      : 3300
+---------------------------------------------
+Event Name   : B.Mars Tour
+Organizer    : STARMIX.ENT
+Date         : 2025-11-19
+Time         : 18:00 - 23:00
+Hall         : Pavillion Arena
+Ticket Price : 165
+Tickets Sold : 2
+Revenue      : 330
+---------------------------------------------
+Event Name   : A.Grande Live
+Organizer    : RANDIANT.ENT
+Date         : 2025-12-03
+Time         : 09:00 - 17:00
+Hall         : Mega Star Arena
+Ticket Price : 170
+Tickets Sold : 2
+Revenue      : 340
+---------------------------------------------
+Event Name   : J.Bieber Live
+Organizer    : SKYPRO.ENT
+Date         : 2025-09-25
+Time         : 18:00 - 23:00
+Hall         : Sports Arena
 Ticket Price : 150
 Tickets Sold : 2
 Revenue      : 300
 ---------------------------------------------
-Event Name   : Coldplay Party
-Organizer    : DIMITRI
-Date         : 2025-12-10
+Event Name   : Maroon5 Tour
+Organizer    : PULSECO
+Date         : 2025-09-27
+Time         : 18:00 - 23:00
+Hall         : UM Arena
+Ticket Price : 155
+Tickets Sold : 2
+Revenue      : 310
+---------------------------------------------
+Event Name   : EXO Tour
+Organizer    : SM ENT
+Date         : 2025-10-29
+Time         : 18:00 - 23:00
+Hall         : Mega Star Arena
+Ticket Price : 150
+Tickets Sold : 17
+Revenue      : 2550
+---------------------------------------------
+Event Name   : Eminem Concert
+Organizer    : MICPRO 
+Date         : 2025-11-30
+Time         : 18:00 - 23:00
+Hall         : Portland Arena
+Ticket Price : 180
+Tickets Sold : 4
+Revenue      : 720
+---------------------------------------------
+Event Name   : S.Gomez Tour
+Organizer    : GLOWENT
+Date         : 2025-11-05
+Time         : 18:00 - 23:00
+Hall         : UM Arena
+Ticket Price : 140
+Tickets Sold : 2
+Revenue      : 280
+---------------------------------------------
+Event Name   : Cardi B Tour
+Organizer    : RAPCO
+Date         : 2025-09-26
 Time         : 09:00 - 17:00
-Hall         : Queensbay Mall
-Ticket Price : 250
-Tickets Sold : 0
-Revenue      : 0
+Hall         : Mega Star Arena
+Ticket Price : 155
+Tickets Sold : 3
+Revenue      : 465
 ---------------------------------------------
-Event Name   : Miku Concert
-Organizer    : JONATHAN
-Date         : 2025-10-27
+Event Name   : J.Derulo Live
+Organizer    : VOXLY
+Date         : 2025-12-09
 Time         : 18:00 - 23:00
-Hall         : Sunway Carnival Mall
+Hall         : Sports Arena
+Ticket Price : 140
+Tickets Sold : 2
+Revenue      : 280
+---------------------------------------------
+Event Name   : Zedd Concert
+Organizer    : MIX ENT
+Date         : 2025-11-08
+Time         : 09:00 - 17:00
+Hall         : Pavillion Arena
+Ticket Price : 150
+Tickets Sold : 3
+Revenue      : 450
+---------------------------------------------
+Event Name   : BlackPink Tour
+Organizer    : YG ENT
+Date         : 2024-11-06
+Time         : 18:00 - 23:00
+Hall         : Portland Arena
 Ticket Price : 200
-Tickets Sold : 1
-Revenue      : 200
+Tickets Sold : 2
+Revenue      : 400
 ---------------------------------------------
-Event Name   : Travis Tour
-Organizer    : JONATHAN
-Date         : 2025-11-11
+Event Name   : Big Bang Tour
+Organizer    : YG ENT
+Date         : 2025-12-09
 Time         : 18:00 - 23:00
-Hall         : Queensbay Mall
+Hall         : Axiata Arena
+Ticket Price : 200
+Tickets Sold : 6
+Revenue      : 1200
+---------------------------------------------
+Event Name   : NCT Live
+Organizer    : SM ENT
+Date         : 2025-10-25
+Time         : 18:00 - 23:00
+Hall         : UM Arena
+Ticket Price : 190
+Tickets Sold : 5
+Revenue      : 950
+---------------------------------------------
+Event Name   : Gawr Gura Final
+Organizer    : HOLOLIVE
+Date         : 2025-05-01
+Time         : 18:00 - 23:00
+Hall         : Axiata Arena
 Ticket Price : 300
-Tickets Sold : 0
-Revenue      : 0
+Tickets Sold : 2
+Revenue      : 600
 ---------------------------------------------

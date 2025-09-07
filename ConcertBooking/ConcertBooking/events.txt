@@ -1,10 +1,44 @@
-Ado Tour	EVEN	2025-09-25 18:00 23:00 100.5 0
-Setia Spice
-Gun's n Roses Tour	DARREN	2025-09-20 09:00 17:00 150 0
-Setia Spice
-Coldplay Party	DIMITRI	2025-12-10 09:00 17:00 250 0
-Queensbay Mall
-Miku Concert	JONATHAN	2025-10-27 18:00 23:00 200 1
-Sunway Carnival Mall
-Travis Tour	JONATHAN	2025-11-11 18:00 23:00 300 0
-Queensbay Mall
+LISA Tour	EVEN	2024-12-12 09:00 17:00 399 0
+KL Arena
+AIMER Tour	DARREN	2025-12-12 09:00 17:00 299 0
+KL Arena
+KNY Tour	UFOTABLE	2025-12-12 09:00 17:00 199 0
+Axiata Arena
+ADO Tour	JONATHAN	2025-12-12 09:00 17:00 599 0
+Mega Star Arena
+TWICE Tour	JYP ENT	2025-12-12 18:00 23:00 160 0
+Mega Star Arena
+K-Pop Global Wave	SEOULVIBE ENT.	2025-10-20 18:00 23:00 150 0
+Axiata Arena
+T.Swift Tour	STARPRO	2025-09-20 09:00 17:00 185 0
+Portland Arena
+BTS Tour	BIGHIT.ENT	2025-10-26 18:00 23:00 220 0
+Mega Star Arena
+B.Mars Tour	STARMIX.ENT	2025-11-19 18:00 23:00 165 0
+Pavillion Arena
+A.Grande Live	RANDIANT.ENT	2025-12-03 09:00 17:00 170 0
+Mega Star Arena
+J.Bieber Live	SKYPRO.ENT	2025-09-25 18:00 23:00 150 0
+Sports Arena
+Maroon5 Tour	PULSECO	2025-09-27 18:00 23:00 155 0
+UM Arena
+EXO Tour	SM ENT	2025-10-29 18:00 23:00 150 0
+Mega Star Arena
+Eminem Concert	MICPRO 	2025-11-30 18:00 23:00 180 0
+Portland Arena
+S.Gomez Tour	GLOWENT	2025-11-05 18:00 23:00 140 0
+UM Arena
+Cardi B Tour	RAPCO	2025-09-26 09:00 17:00 155 0
+Mega Star Arena
+J.Derulo Live	VOXLY	2025-12-09 18:00 23:00 140 0
+Sports Arena
+Zedd Concert	MIX ENT	2025-11-08 09:00 17:00 150 0
+Pavillion Arena
+BlackPink Tour	YG ENT	2024-11-06 18:00 23:00 200 0
+Portland Arena
+Big Bang Tour	YG ENT	2025-12-09 18:00 23:00 200 0
+Axiata Arena
+NCT Live	SM ENT	2025-10-25 18:00 23:00 190 0
+UM Arena
+Gawr Gura Final	HOLOLIVE	2025-05-01 18:00 23:00 300 0
+Axiata Arena

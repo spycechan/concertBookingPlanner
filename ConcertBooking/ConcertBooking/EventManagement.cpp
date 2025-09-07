@@ -127,15 +127,18 @@ void viewEvents(const vector<Event>& events, const vector<Venue>& venues) {
         << setw(12) << "Date"
         << setw(8) << "Start"
         << setw(8) << "End"
+        << setw(8) << "Hall ID"
         << setw(10) << "Hall"
         << setw(12) << "Rental"
         << setw(15) << "Price per Ticket" << " |" << endl;
     cout << "---------------------------------------------------------------------------------------------------------------" << endl;
     for (int i = 0; i < events.size(); i++) {
         double rentalPrice = 0.0;
+        string hallID = "";
         for (int j = 0; j < venues.size(); j++) {
             if (venues[j].venueName == events[i].hallName) {
                 rentalPrice = venues[j].rentalCost;
+                hallID = venues[j].venueID;
                 break;
             }
         }
@@ -148,6 +151,7 @@ void viewEvents(const vector<Event>& events, const vector<Venue>& venues) {
             << setw(12) << events[i].date
             << setw(8) << events[i].startTime
             << setw(8) << events[i].endTime
+            << setw(8) << hallID
             << setw(10) << hallDisplay
             << setw(12) << fixed << setprecision(2) << rentalPrice
             << setw(15) << fixed << setprecision(2) << events[i].ticketPrice << " |" << endl;
@@ -314,8 +318,71 @@ bool isValidDate(const string& date) {
     return regex_match(date, datePattern);
 }
 
+// Get unique organizers in uppercase
+vector<string> getUniqueOrganizers(const vector<Event>& events) {
+    vector<string> organizers;
+    for (int i = 0; i < events.size(); ++i) {
+        string org = events[i].organizer;
 
-void viewEventsByOrganizer(const vector<Event>& events, const vector<Venue>& venues, const string& organizerName) {
+        // Convert to uppercase manually
+        for (int j = 0; j < org.length(); ++j) {
+            org[j] = toupper(org[j]);
+        }
+
+        // Check if already added
+        bool exists = false;
+        for (int k = 0; k < organizers.size(); ++k) {
+            if (organizers[k] == org) {
+                exists = true;
+                break;
+            }
+        }
+
+        // Add if not found
+        if (!exists) {
+            organizers.push_back(org);
+        }
+    }
+    return organizers;
+}
+
+// View events by organizer
+void viewEventsByOrganizer(const vector<Event>& events, const vector<Venue>& venues) {
+    vector<string> organizers = getUniqueOrganizers(events);
+    if (organizers.empty()) {
+        cout << "No organizers found...\n";
+        return;
+    }
+
+    cout << "Select your organizer:\n";
+    for (size_t i = 0; i < organizers.size(); ++i) {
+        cout << i + 1 << ". " << organizers[i] << endl;
+    }
+    cout << "0. Cancel\n";
+
+    int choice;
+    while (true) {
+        cout << "Enter choice (1-" << organizers.size() << ", 0 to cancel): ";
+        cin >> choice;
+        if (cin.fail() || choice < 0 || choice >(int)organizers.size()) {
+            cin.clear();
+            cin.ignore(1000, '\n');
+            cout << "Invalid input... Try again.\n";
+        }
+        else {
+            break;
+        }
+    }
+    if (choice == 0) {
+        cout << "Operation cancelled...\n";
+        return;
+    }
+    string organizerName = organizers[choice - 1];
+
+    string organizerUpper = organizerName;
+    for (size_t k = 0; k < organizerUpper.size(); ++k) {
+        organizerUpper[k] = toupper(organizerUpper[k]);
+    }
     cout << "============================================================================================================================" << endl;
     cout << "|                                                   Event List                                                             |" << endl;
     cout << "============================================================================================================================" << endl;
@@ -327,13 +394,9 @@ void viewEventsByOrganizer(const vector<Event>& events, const vector<Venue>& ven
         << setw(15) << "Hall"
         << setw(12) << "Rental"
         << setw(15) << "Price/Ticket"
-        << setw(15) << "Payment Status" << " |" << endl; // Added Payment Status column
+        << setw(15) << "Payment Status" << " |" << endl;
     cout << "----------------------------------------------------------------------------------------------------------------------------" << endl;
     bool found = false;
-    string organizerUpper = organizerName;
-    for (size_t k = 0; k < organizerUpper.size(); ++k) {
-        organizerUpper[k] = toupper(organizerUpper[k]);
-    }
     for (int i = 0; i < events.size(); i++) {
         if (events[i].organizer == organizerUpper) {
             double rentalPrice = 0.0;
@@ -351,7 +414,7 @@ void viewEventsByOrganizer(const vector<Event>& events, const vector<Venue>& ven
                 << setw(15) << events[i].hallName
                 << setw(12) << fixed << setprecision(2) << rentalPrice
                 << setw(15) << fixed << setprecision(2) << events[i].ticketPrice
-                << setw(15) << (events[i].paid ? "Paid" : "Unpaid") << " |" << endl; // Display payment status = Paid or Unpaid
+                << setw(15) << (events[i].paid ? "Paid" : "Unpaid") << " |" << endl;
             found = true;
         }
     }
@@ -361,47 +424,38 @@ void viewEventsByOrganizer(const vector<Event>& events, const vector<Venue>& ven
     cout << "============================================================================================================================" << endl;
 }
 
-// Organizer payment function
+// Process payment for organizer's unpaid events
 void organizerPayment(vector<Event>& events, const vector<Venue>& venues) {
-    string organizerName;
-    bool organizerFound = false;
-    cin.ignore(); // Clear input buffer
+    vector<string> organizers = getUniqueOrganizers(events);
+    if (organizers.empty()) {
+        cout << "No organizers found...\n";
+        return;
+    }
 
-    // Organizer name input and validation
-    while (!organizerFound) {
-        cout << "Enter your organizer name ('0' to cancel): ";
-        getline(cin, organizerName);
+    cout << "Select your organizer:\n";
+    for (size_t i = 0; i < organizers.size(); ++i) {
+        cout << i + 1 << ". " << organizers[i] << endl;
+    }
+    cout << "0. Cancel\n";
 
-        // Convert input to uppercase
-        for (int i = 0; i < organizerName.length(); i++) {
-            organizerName[i] = toupper(organizerName[i]);
+    int choice;
+    while (true) {
+        cout << "Enter choice (1-" << organizers.size() << ", 0 to cancel): ";
+        cin >> choice;
+        if (cin.fail() || choice < 0 || choice >(int)organizers.size()) {
+            cin.clear();
+            cin.ignore(1000, '\n');
+            cout << "Invalid input... Try again.\n";
         }
-
-        if (organizerName == "0") {
-            cout << "Operation cancelled...\n";
-            return;
-        }
-
-        // Check if organizer exists
-        for (int i = 0; i < events.size(); i++) {
-            string tempOrganizer = events[i].organizer;
-            for (int j = 0; j < tempOrganizer.length(); j++) {
-                tempOrganizer[j] = toupper(tempOrganizer[j]);
-            }
-
-            // Organizer found
-            if (tempOrganizer == organizerName) {
-                organizerFound = true;
-                break;
-            }
-        }
-
-        // If not found, prompt again
-        if (!organizerFound) {
-            cout << "Organizer not found :) Pls try again.\n";
-            continue;
+        else {
+            break;
         }
     }
+    if (choice == 0) {
+        cout << "Operation cancelled...\n";
+        return;
+    }
+    string organizerName = organizers[choice - 1];
 
     // List unpaid events
     int unpaidIndices[100];
@@ -454,7 +508,6 @@ void organizerPayment(vector<Event>& events, const vector<Venue>& venues) {
         }
     }
 
-    // No unpaid events
     if (unpaidCount == 0) {
         cout << "All events are already paid.\n";
         return;
@@ -462,7 +515,6 @@ void organizerPayment(vector<Event>& events, const vector<Venue>& venues) {
 
     cout << "============================================================================================================================" << endl;
 
-    // Select event to pay
     int payChoice;
     while (true) {
         cout << "\nSelect event to pay (1-" << unpaidCount << ") or 0 to cancel: ";
@@ -490,7 +542,6 @@ void organizerPayment(vector<Event>& events, const vector<Venue>& venues) {
 
     int selectedIndex = unpaidIndices[payChoice - 1];
 
-    // Payment method
     int method;
     string methodName;
 
@@ -527,7 +578,6 @@ void organizerPayment(vector<Event>& events, const vector<Venue>& venues) {
         }
     }
 
-    // Simulate payment
     cout << "\nProcessing payment via " << methodName << "...\n";
     cout << "Please wait...\n";
 
@@ -561,3 +611,94 @@ void organizerPayment(vector<Event>& events, const vector<Venue>& venues) {
     cout << "Thank you for using our service!" << endl;
 }
 
+// Refund and delete event for organizer
+void refundPaymentEvent(vector<Event>& events, const vector<Venue>& venues) {
+    if (events.size() == 0) {
+        cout << "No events to refund.\n";
+        return;
+    }
+
+    cout << "==========================================================================================\n";
+    cout << "|                        Select the event to refund                                      |\n";
+    cout << "==========================================================================================\n";
+    cout << "| " << left
+        << setw(3)  << "No"
+        << setw(20) << "Event Name"
+        << setw(15) << "Organizer"
+        << setw(12) << "Date"
+        << setw(8)  << "Start"
+        << setw(8)  << "End"
+        << setw(22) << "Hall"           
+        << setw(12) << "Paid Status"    
+        << "|\n";
+    cout << "------------------------------------------------------------------------------------------\n";
+    for (int i = 0; i < events.size(); i++) {
+        cout << "| " << left
+            << setw(3)  << i + 1
+            << setw(20) << events[i].name
+            << setw(15) << events[i].organizer
+            << setw(12) << events[i].date
+            << setw(8)  << events[i].startTime
+            << setw(8)  << events[i].endTime
+            << setw(22) << events[i].hallName      
+            << setw(12) << (events[i].paid ? "Paid" : "Unpaid") 
+            << "|\n";
+    }
+    cout << "==========================================================================================\n";
+
+    int idx;
+    while (true) {
+        cout << "Enter event number to refund: ";
+        cin >> idx;
+
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(1000, '\n');
+            cout << "Invalid input... Please enter a number.\n";
+            continue;
+        }
+
+        if (idx < 1 || idx > events.size()) {
+            cout << "Invalid selection... Please choose a number between 1 and " << events.size() << ".\n";
+            continue;
+        }
+
+        break;
+    }
+
+    idx = idx - 1;
+
+    if (events[idx].paid == false) {
+        cout << "Refund is only available for paid events.\n";
+        return;
+    }
+
+    double rental = 0.0;
+    for (int i = 0; i < venues.size(); i++) {
+        if (venues[i].venueName == events[idx].hallName) {
+            rental = venues[i].rentalCost;
+            break;
+        }
+    }
+
+    string confirm;
+    cout << "\nPlease enter 'CONFIRM' to proceed with refund and event deletion: ";
+    cin >> confirm;
+
+    if (confirm != "CONFIRM") {
+        cout << "Confirmation not confirmed. Returning...\n";
+        return;
+    }
+
+    cout << "\nProcessing refund of RM " << fixed << setprecision(2)
+        << rental << " to organizer: " << events[idx].organizer << "...\n";
+    cout << "Please wait...\n";
+    cout << "Refund successful.\n";
+
+    cout << "Deleting event: " << events[idx].name << "\n";
+    events.erase(events.begin() + idx);
+
+    saveEvents(events);
+
+    cout << "Event deleted and refund processed.\n";
+}

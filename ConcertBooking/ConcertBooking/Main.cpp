@@ -21,6 +21,43 @@ void organizerMenu(vector<Event>& events, const vector<Venue>& venues);
 void customerMenu(const vector<Event>& events, const vector<Venue>& venues, vector<Ticket>& tickets);
 int getValidatedChoice(int min, int max);
 
+// Function to get validated integer input within a specified range
+int getValidatedChoice(int min, int max) {
+    int choice;
+    string input;
+    bool valid;
+
+    while (true) {
+        cout << "Enter your choice (" << min << "-" << max << "): ";
+        cin >> input;
+
+        valid = true;
+
+        // Check if all characters are digits
+        for (int i = 0; i < input.length(); i++) {
+            if (!isdigit(input[i])) {
+                valid = false;
+                break;
+            }
+        }
+
+        if (valid) {
+            // Convert string to integer
+            choice = 0;
+            for (int i = 0; i < input.length(); i++) {
+                choice = choice * 10 + (input[i] - '0');
+            }
+
+            // Check if within range
+            if (choice >= min && choice <= max) {
+                return choice;
+            }
+        }
+
+        // If input is invalid or out of range
+        cout << "Invalid input. Please enter an integer between " << min << " and " << max << ".\n";
+    }
+}
 
 int main() {
     //vector declaration 
@@ -195,7 +232,7 @@ void showReport(vector<Event>& events, vector<Venue>& venues, vector<Ticket>& ti
         cout << "==============================================\n";
         cout << "| 1. Summary Report (Revenue by Venue)       |\n";
         cout << "| 2. Detailed Report (All Events)            |\n";
-        cout << "| 3. Top 5 Events by Venue                   |\n";
+        cout << "| 3. Top Events by Venue                     |\n";
         cout << "| 4. Top 5 Organizers by Revenue             |\n";
         cout << "| 5. Delete Report                           |\n";
         cout << "| 0. Back                                    |\n";
@@ -230,18 +267,18 @@ void showReport(vector<Event>& events, vector<Venue>& venues, vector<Ticket>& ti
             break;
 
         case 1:
-            summaryReport(events, tickets);
+            summaryReport(events, tickets,venues);
             saveReport(events, venues, tickets);
             break;
 
         case 2:
-            detailedReport(events, tickets);
+            detailedReport(events, tickets,venues);
             saveReport(events, venues, tickets);
             break;
 
         case 3: {
             cin.ignore();
-            Top5(events, tickets);
+            TopEvents(events, tickets);
             saveReport(events, venues, tickets);
             break;
         }
@@ -274,28 +311,25 @@ void organizerMenu(vector<Event>& events, const vector<Venue>& venues) {
         cout << "| 1. Schedule Event                          |\n";
         cout << "| 2. View My Events                          |\n";
         cout << "| 3. Make Payment                            |\n";
+        cout << "| 4. Refund Payment                          |\n";
         cout << "| 0. Go Back                                 |\n";
         cout << "==============================================\n";
-        choice = getValidatedChoice(0, 3);
+        choice = getValidatedChoice(0, 4);
         cout << endl;
         switch (choice) {
         case 1:
             addEvent(events, venues);
             saveEvents(events);
             break;
-        case 2: {
-            string organizerName;
-            cout << "Enter your organizer name: ";
-            cin.ignore();
-            getline(cin, organizerName);
-            for (size_t k = 0; k < organizerName.size(); ++k) {
-                organizerName[k] = toupper(organizerName[k]);
-            }
-            viewEventsByOrganizer(events, venues, organizerName);
+        case 2:
+            viewEventsByOrganizer(events, venues);
             break;
-        }
         case 3:
             organizerPayment(events, venues);
+            break;
+        case 4:
+            refundPaymentEvent(events, venues);
+            saveEvents(events);
             break;
         case 0:
             break;
@@ -313,15 +347,19 @@ void customerMenu(const vector<Event>& events, const vector<Venue>& venues, vect
         cout << "==============================================\n";
         cout << "| 1. Purchase Ticket                         |\n";
         cout << "| 2. View My Tickets                         |\n";
+        cout << "| 3. Refund Ticket                           |\n";
         cout << "| 0. Go Back                                 |\n";
         cout << "==============================================\n";
-        choice = getValidatedChoice(0, 2);
+        choice = getValidatedChoice(0, 3);
         switch (choice) {
         case 1:
             purchaseTicket(events, venues, tickets);
             break;
         case 2:
             viewTickets(tickets);
+            break;
+        case 3:
+            refundTicket(tickets);
             break;
         case 0:
             break;
@@ -330,43 +368,4 @@ void customerMenu(const vector<Event>& events, const vector<Venue>& venues, vect
         }
     } while (choice != 0);
 }
-
-// Function to get validated integer input within a specified range
-int getValidatedChoice(int min, int max) {
-    int choice;
-    string input;
-    bool valid;
-
-    while (true) {
-        cout << "Enter your choice (" << min << "-" << max << "): ";
-        cin >> input;
-
-        valid = true;
-
-        // Check if all characters are digits
-        for (int i = 0; i < input.length(); i++) {
-            if (!isdigit(input[i])) {
-                valid = false;
-                break;
-            }
-        }
-
-        if (valid) {
-            // Convert string to integer
-            choice = 0;
-            for (int i = 0; i < input.length(); i++) {
-                choice = choice * 10 + (input[i] - '0');
-            }
-
-            // Check if within range
-            if (choice >= min && choice <= max) {
-                return choice;
-            }
-        }
-
-        // If input is invalid or out of range
-        cout << "Invalid input. Please enter an integer between " << min << " and " << max << ".\n";
-    }
-}
-
 

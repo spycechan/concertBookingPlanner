@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <fstream>
+#include <sstream>
 
 using namespace std;
 
@@ -12,6 +13,10 @@ void createVenue(vector<Venue>& venues, const string& venueFile)
 {
 	Venue V;
 	//declare a temporary variable to store the struct 
+
+	stringstream ss;
+	ss << 'V' << setw(3) << setfill('0') << (venues.size() + 1);
+	V.venueID = ss.str();
 
 	//ask for venue creation information
 	cout << "=== Venue Creation ===" << endl;
@@ -28,9 +33,8 @@ void createVenue(vector<Venue>& venues, const string& venueFile)
 
 
 	//check if the name and address has conflict
-	if (isVenueConflict(venues, V.venueName)) {
-		cout << "Error: Venue with the same name and address already exists.\n";
-		return;
+	if (isVenueConflict(&venues, &V.venueName)) {
+		cout << "Error: Venue with the same name already exists.\n";
 	}
 
 	//add into the vector first then save into text file
@@ -54,9 +58,17 @@ void listVenue(const vector<Venue>& venues)
 	int index = 1;
 	for (const auto& i : venues) {
 		cout << string(WIDTH, '-') << "\n";
-		cout << "| [" << index++ << "] " << setw(WIDTH - 6) << left << i.venueName << "|\n";
+		cout << "| [" << index++ << "] " << setw(WIDTH - 7) << left << i.venueName << "|\n";
 		cout << string(WIDTH, '-') << "\n";
-		cout << "| Address       : " << setw(WIDTH - 20) << left << i.venueAddress << " |\n";
+		cout << "| VenueID       : " << setw(WIDTH - 20) << left << i.venueID << " |\n";
+		cout << "| Address       : ";
+		if (i.venueAddress.length() <= 70) {
+			cout << setw(WIDTH - 20) << left << i.venueAddress << " |\n";
+		}
+		else {
+			cout << setw(WIDTH - 20) << left << i.venueAddress.substr(0, 70) << " |\n";
+			cout << "|               : " << setw(WIDTH - 20) << left << i.venueAddress.substr(70) << " |\n";
+		}
 		cout << "| Capacity      : " << setw(WIDTH - 20) << left << i.venueCapacity << " |\n";
 		cout << "| Rental Cost/hr: $" << setw(WIDTH - 22) << fixed << setprecision(2) << i.rentalCost << "  |\n";
 		cout << "| Availability  : " << setw(WIDTH - 20) << left
@@ -208,8 +220,9 @@ void loadVenuesFromFile(vector<Venue>& venues, const string& venueFile)
 {
 	ifstream inFile(venueFile);
 	Venue V;
-	while (getline(inFile, V.venueName))
+	while (getline(inFile, V.venueID))
 	{
+		getline(inFile, V.venueName);
 		getline(inFile, V.venueAddress);
 		inFile >> V.venueCapacity;
 		inFile >> V.rentalCost;
@@ -221,13 +234,13 @@ void loadVenuesFromFile(vector<Venue>& venues, const string& venueFile)
 }
 
 //check conflicts
-bool isVenueConflict(vector<Venue>& venues, const string& venueName) {
-	for (int i = 0; i < venues.size(); i++) {
-		if (venues[i].venueName == venueName) {
+bool isVenueConflict(vector<Venue>* venues, const string* venueName) {
+	for (int i = 0; i < venues->size(); i++) {
+		if ((*venues)[i].venueName == *venueName) {
 			return true; // found conflict
 		}
 	}
-	return false;//proceed with whatever the func doing
+	return false; // no conflict
 }
 
 //save venue into files
@@ -237,7 +250,9 @@ void saveVenues(vector<Venue>& venues, const string& venueFile)
 	for (int i = 0; i < venues.size(); i++)
 	{
 		const Venue& V = venues[i];
-		fout << V.venueName << endl
+		fout
+			<< V.venueID << endl
+			<< V.venueName << endl
 			<< V.venueAddress << endl
 			<< V.venueCapacity << endl
 			<< V.rentalCost << endl

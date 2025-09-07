@@ -1,0 +1,25 @@
+Starhall Arena
+12 Jalan Bukit, Penang
+200
+200
+1
+Echo Done
+88 Klang Street, Kuala Lumpur
+300
+350
+1
+Pulse Pavillion
+5 Jalan Merdeka, Melaka
+100
+150
+1
+Rythm Square
+27 Jalan Tun, Johor Bahru
+150
+150
+1
+Sonic Grounds
+9 Jalan Ampang, KL
+250
+300
+1
