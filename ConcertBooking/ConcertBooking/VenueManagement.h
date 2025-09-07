@@ -10,6 +10,7 @@ using namespace std;
 //struct declaration
 struct Venue
 {
+	string venueID;
 	string venueName;
 	string venueAddress;
 	int venueCapacity;
@@ -23,7 +24,7 @@ void listVenue(const vector<Venue>& venues);
 void updateVenue(vector<Venue>& venues);
 void venueDeletion(vector<Venue>& venues, const string& venueFile);
 void loadVenuesFromFile(vector<Venue>& venues, const string& venueFile);
-bool isVenueConflict(vector<Venue>& venues, const string& venueName);
+bool isVenueConflict(vector<Venue>* venues, const string* venueName);
 void saveVenues(vector<Venue>& venues, const string& venueFile);
 #endif
 

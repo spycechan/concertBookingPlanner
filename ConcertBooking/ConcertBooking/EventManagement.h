@@ -16,7 +16,7 @@ struct Event {
     string hallName;
     string organizer;
     double ticketPrice;
-    bool paid = false; // Update Track payment status
+    bool paid = false;
 };
 
 //Event Management functions declarations
@@ -24,12 +24,13 @@ void loadEvents(vector<Event>& events);
 void saveEvents(const vector<Event>& events);
 void addEvent(vector<Event>& events, const vector<Venue>& venues);
 void viewEvents(const vector<Event>& events, const vector<Venue>& venues);
-void viewEventsByOrganizer(const vector<Event>& events, const vector<Venue>& venues, const string& organizerName);
 void updateEvent(vector<Event>& events, const vector<Venue>& venues);
 void removeEvent(vector<Event>& events);
 bool isConflict(const vector<Event>& events, const string& date, const string& startTime, const string& endTime, const string& hallName);
 bool isValidDate(const string& date);
-void organizerPayment(vector<Event>& events, const vector<Venue>& venues); // Orangizer payment function
+void viewEventsByOrganizer(const vector<Event>& events, const vector<Venue>& venues);
+void organizerPayment(vector<Event>& events, const vector<Venue>& venues);
+void refundPaymentEvent(vector<Event>& events, const vector<Venue>& venues);
 
 
 #endif

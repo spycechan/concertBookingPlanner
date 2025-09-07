@@ -11,15 +11,17 @@
 
 using namespace std;
 
-void summaryReport(const vector<Event>& events, const vector<Ticket>& tickets) {
-    string venueData[100][2];
-    int venueCount = 0;
+void summaryReport(const vector<Event>& events, const vector<Ticket>& tickets, const vector<Venue>& venues) {
+    string venueData[100][4]; // [0] = hallID [1] = hallName, [2] = revenue, [3] = event count
+    int Count = 0;
 
     cout << "\n===============================================================================================================" << endl;
     cout << "|                                   Summary Report: Revenue by Venue                                          |" << endl;
     cout << "===============================================================================================================" << endl;
-    cout << "| " << left << setw(40) << "Venue"
-        << "| " << setw(30) << "Total Revenue (RM)" << "|" << endl;
+    cout << "| " << left << setw(10) << "Hall ID"
+         << "| " << left << setw(40) << "Venue"
+         << "| " << setw(30) << "Total Revenue (RM)"
+         << "| " << setw(22) << "Total Events" << "|" << endl;
     cout << "---------------------------------------------------------------------------------------------------------------" << endl;
 
     // Sum revenue per venue
@@ -30,15 +32,24 @@ void summaryReport(const vector<Event>& events, const vector<Ticket>& tickets) {
                 sold++;
             }
         }
+        string hallID = "";
+        for (const auto& v : venues) {
+            if (v.venueName == events[i].hallName) {
+                hallID = v.venueID;
+                break;
+            }
+        }
 
         double revenue = events[i].ticketPrice * sold;
         bool found = false;
 
         // check if venue aldy exists in array
-        for (int k = 0; k < venueCount; k++) {
-            if (venueData[k][0] == events[i].hallName) {
-                double current = stod(venueData[k][1]);
-                venueData[k][1] = to_string(current + revenue);
+        for (int k = 0; k < Count; k++) {
+            if (venueData[k][1] == events[i].hallName) {
+                double current = stod(venueData[k][2]);
+                venueData[k][2] = to_string(current + revenue);
+                int count = stoi(venueData[k][3]);
+                venueData[k][3] = to_string(count + 1);
                 found = true;
                 break;
             }
@@ -46,39 +57,54 @@ void summaryReport(const vector<Event>& events, const vector<Ticket>& tickets) {
 
         // if new venue, add to array
         if (!found) {
-            venueData[venueCount][0] = events[i].hallName;
-            venueData[venueCount][1] = to_string(revenue);
-            venueCount++;
+            venueData[Count][0] = hallID;
+            venueData[Count][1] = events[i].hallName;
+            venueData[Count][2] = to_string(revenue);
+            venueData[Count][3] = "1"; // first event at this venue
+            Count++;
         }
     }
 
     double total = 0.0;
-    for (int i = 0; i < venueCount; i++) {
-        double revenue = stod(venueData[i][1]); // convert back for printing and total
-        cout << "| " << left << setw(40) << venueData[i][0]
-            << "| " << setw(30) << fixed << setprecision(2) << revenue << " |" << endl;
+    int totalEvents = 0;
+    for (int i = 0; i < Count; i++) {
+        double revenue = stod(venueData[i][2]); // convert back for printing and total
+        int count = stoi(venueData[i][3]);
+        cout 
+            << "| " << left << setw(10) << venueData[i][0]
+            << "| " << left << setw(40) << venueData[i][1]
+            << "| " << setw(30) << fixed << setprecision(2) << revenue
+            << "| " << setw(21) << count << " |" << endl;
         total += revenue;
+        totalEvents += count;
     }
 
     cout << "---------------------------------------------------------------------------------------------------------------" << endl;
-    cout << "| " << setw(40) << left << "TOTAL"
-        << "| " << setw(30) << fixed << setprecision(2) << total << " |" << endl;
+    cout << "| " << setw(52) << left << "TOTAL"
+        << "| " << setw(30) << fixed << setprecision(2) << total
+        << "| " << setw(21) << totalEvents << " |" << endl;
     cout << "===============================================================================================================" << endl;
 }
 
-void detailedReport(const vector<Event>& events, const vector<Ticket>& tickets) {
-    cout << "===============================================================================================================" << endl;
-    cout << "|                                         Detailed Report                                                     |" << endl;
-    cout << "===============================================================================================================" << endl;
+
+void detailedReport(const vector<Event>& events, const vector<Ticket>& tickets, const vector<Venue>& venues) {
+    cout << "===========================================================================================================================" << endl;
+    cout << "|                                              Detailed Report                                                            |" << endl;
+    cout << "===========================================================================================================================" << endl;
     cout << "| " << left << setw(20) << "Event Name"
-        << "| " << setw(20) << "Venue"
-        << "| " << setw(20) << "Ticket Sold"
-        << "| " << setw(20) << "Price"
-        << "| " << setw(20) << "Revenue" << "|" << endl;
-    cout << "---------------------------------------------------------------------------------------------------------------" << endl;
+        << setw(15) << "Organizer"
+        << setw(12) << "Date"
+        << setw(8) << "Start"
+        << setw(8) << "End"
+        << setw(7) << "HallID"
+        << setw(10) << "Hall"
+        << setw(15) << "Price/Ticket"
+        << setw(13) << "Tickets Sold"
+        << setw(12) << "Revenue" << "|" << endl;
+    cout << "---------------------------------------------------------------------------------------------------------------------------" << endl;
 
     double total = 0.0;
-
+    string hallID ="";
     for (size_t i = 0; i < events.size(); i++) {
         int sold = 0;
         for (size_t j = 0; j < tickets.size(); j++) {
@@ -87,23 +113,41 @@ void detailedReport(const vector<Event>& events, const vector<Ticket>& tickets) 
             }
         }
 
+        // Find the venueID from venues vector
+        for (const auto& v : venues) {
+            if (v.venueName == events[i].hallName) {
+                hallID = v.venueID;
+                break;
+            }
+        }
+        string hallDisplay = events[i].hallName;
+        if (hallDisplay.length() > 9) {
+            hallDisplay = hallDisplay.substr(0, 7) + "..";
+        }
+        
         double revenue = events[i].ticketPrice * sold;
         total += revenue;
 
         cout << "| " << left << setw(20) << events[i].name
-            << "| " << setw(20) << events[i].hallName
-            << "| " << setw(20) << sold
-            << "| " << setw(20) << fixed << setprecision(2) << events[i].ticketPrice
-            << "| " << setw(20) << fixed << setprecision(2) << revenue << "|" << endl;
+            << setw(15) << events[i].organizer
+            << setw(12) << events[i].date
+            << setw(8) << events[i].startTime
+            << setw(8) << events[i].endTime
+            << setw(7) << hallID
+            << setw(10) << left << hallDisplay
+            << setw(15) << fixed << setprecision(2) << events[i].ticketPrice
+            << setw(13) << sold
+            << setw(12) << fixed << setprecision(2) << revenue << "|" << endl;
     }
 
-    cout << "---------------------------------------------------------------------------------------------------------------" << endl;
-    cout << "| " << setw(84) << left << "TOTAL REVENUE:"
+    cout << "---------------------------------------------------------------------------------------------------------------------------" << endl;
+    cout << "| " << setw(108) << left << "TOTAL REVENUE:"
         << "RM " << fixed << setprecision(2) << total << " |" << endl;
-    cout << "===============================================================================================================" << endl;
+    cout << "===========================================================================================================================" << endl;
 }
 
-void Top5(const vector<Event>& events, const vector<Ticket>& tickets) {
+
+void TopEvents(const vector<Event>& events, const vector<Ticket>& tickets) {
     set<string> uniqueLocations;
     for (size_t i = 0; i < events.size(); i++) {
         uniqueLocations.insert(events[i].hallName);
@@ -115,18 +159,22 @@ void Top5(const vector<Event>& events, const vector<Ticket>& tickets) {
         cout << " - " << loc << endl;
     }
 
-    //user input
+    // User input 
     string location;
     cout << "\nEnter location: ";
     getline(cin, location);
 
-    // Chanege to lowercase
+    // Change to lowercase
     string inputLower = location;
     transform(inputLower.begin(), inputLower.end(), inputLower.begin(), ::tolower);
 
     vector<string> names;
     vector<double> revenues;
-    string matchedVenue = "";  //save venue name
+    vector<int> ticketsSold;
+    vector<double> ticketPrices;
+    string matchedVenue = "";  // save venue name
+
+    double totalVenueRevenue = 0.0;
 
     for (size_t i = 0; i < events.size(); i++) {
         string hallLower = events[i].hallName;
@@ -148,54 +196,77 @@ void Top5(const vector<Event>& events, const vector<Ticket>& tickets) {
             double revenue = events[i].ticketPrice * sold;
             names.push_back(events[i].name);
             revenues.push_back(revenue);
+            ticketsSold.push_back(sold);
+            ticketPrices.push_back(events[i].ticketPrice);
+            totalVenueRevenue += revenue;
         }
     }
 
-    //Validation
+    // Validation
     if (names.empty()) {
         cout << "\nNo venue found starting with \"" << location << "\". Please try again.\n";
         return;
     }
 
-    cout << "\n===============================================================================================================" << endl;
-    cout << "|                                   Top 5 Events in " << setw(45) << left << matchedVenue << " |" << endl;
-    cout << "===============================================================================================================" << endl;
+    int topX;
+    cout << "Enter number of top events to display: ";
+    cin >> topX;
+    cin.ignore();
+
+    cout << "\n==============================================================================================================================" << endl;
+    cout << "|                                           Top " << topX << " Events in " << setw(40) << left << matchedVenue << " |" << endl;
+    cout << "==============================================================================================================================" << endl;
     cout << "| " << setw(5) << left << "Rank"
         << "| " << setw(40) << "Event Name"
-        << "| " << setw(30) << "Revenue (RM)" << "|" << endl;
-    cout << "---------------------------------------------------------------------------------------------------------------" << endl;
+        << "| " << setw(15) << "Ticket Price"
+        << "| " << setw(15) << "Tickets Sold"
+        << "| " << setw(20) << "Revenue (RM)"
+        << "| " << setw(15) << "% of revenue" << "|" << endl;
+    cout << "------------------------------------------------------------------------------------------------------------------------------" << endl;
 
-    // Sort by revenue
+    // Sort by revenue (descending)
     for (size_t i = 0; i < revenues.size(); i++) {
         for (size_t j = i + 1; j < revenues.size(); j++) {
             if (revenues[i] < revenues[j]) {
                 swap(revenues[i], revenues[j]);
                 swap(names[i], names[j]);
+                swap(ticketsSold[i], ticketsSold[j]);
+                swap(ticketPrices[i], ticketPrices[j]);
             }
         }
     }
 
-    int limit = (revenues.size() < 5) ? revenues.size() : 5;
+    int limit = (revenues.size() < (size_t)topX) ? revenues.size() : topX;
     for (int i = 0; i < limit; i++) {
+        double percentage = (totalVenueRevenue > 0) ? (revenues[i] / totalVenueRevenue) * 100.0 : 0.0;
         cout << "| " << setw(5) << i + 1
             << "| " << setw(40) << names[i]
-            << "| " << setw(30) << fixed << setprecision(2) << revenues[i] << "|" << endl;
+            << "| " << setw(15) << fixed << setprecision(2) << ticketPrices[i]
+            << "| " << setw(15) << ticketsSold[i]
+            << "| " << setw(20) << fixed << setprecision(2) << revenues[i]
+            << "| " << setw(15) << fixed << setprecision(2) << percentage << "%" << "|" << endl;
     }
 
-    cout << "===============================================================================================================" << endl;
+    cout << "==============================================================================================================================" << endl;
+    cout << "Total Revenue for " << matchedVenue << ": RM " << fixed << setprecision(2) << totalVenueRevenue << endl;
+    cout << "==============================================================================================================================" << endl;
 }
 
+
+
 void Top5Organizers(const vector<Event>& events, const vector<Ticket>& tickets) {
-    cout << "\n===============================================================================================================" << endl;
-    cout << "|                                   Top 5 Organizers by Revenue                                               |" << endl;
-    cout << "===============================================================================================================" << endl;
+    cout << "\n=================================================================================================" << endl;
+    cout << "|                                Top 5 Organizers by Revenue                                   |" << endl;
+    cout << "=================================================================================================" << endl;
     cout << "| " << setw(5) << left << "Rank"
-        << "| " << setw(40) << "Organizer"
-        << "| " << setw(30) << "Revenue (RM)" << "|" << endl;
-    cout << "---------------------------------------------------------------------------------------------------------------" << endl;
+        << "| " << setw(40) << left << "Organizer"
+        << "| " << setw(15) << right << "Revenue (RM)"
+        << "| " << setw(10) << right << "Events" << " |" << endl;
+    cout << "-------------------------------------------------------------------------------------------------" << endl;
 
     vector<string> organizers;
     vector<double> revenues;
+    vector<int> event;  //number of events organized
 
     for (size_t i = 0; i < events.size(); i++) {
         int sold = 0;
@@ -210,6 +281,7 @@ void Top5Organizers(const vector<Event>& events, const vector<Ticket>& tickets) 
         for (size_t k = 0; k < organizers.size(); k++) {
             if (organizers[k] == events[i].organizer) {
                 revenues[k] += revenue;
+                event[k]++;   
                 found = true;
                 break;
             }
@@ -217,28 +289,32 @@ void Top5Organizers(const vector<Event>& events, const vector<Ticket>& tickets) 
         if (!found) {
             organizers.push_back(events[i].organizer);
             revenues.push_back(revenue);
+            event.push_back(1);  //first event for this organizer
         }
     }
 
-    // Sort
+    // Sort by revenue (descending)
     for (size_t i = 0; i < revenues.size(); i++) {
         for (size_t j = i + 1; j < revenues.size(); j++) {
             if (revenues[i] < revenues[j]) {
                 swap(revenues[i], revenues[j]);
                 swap(organizers[i], organizers[j]);
+                swap(event[i], event[j]);
             }
         }
     }
 
     int limit = (revenues.size() < 5) ? revenues.size() : 5;
     for (int i = 0; i < limit; i++) {
-        cout << "| " << setw(5) << i + 1
-            << "| " << setw(40) << organizers[i]
-            << "| " << setw(30) << fixed << setprecision(2) << revenues[i] << "|" << endl;
+        cout << "| " << setw(5) << left << i + 1
+            << "| " << setw(40) << left << organizers[i]
+            << "| " << setw(15) << right << fixed << setprecision(2) << revenues[i]
+            << "| " << setw(10) << right << event[i] << " |" << endl;
     }
 
-    cout << "===============================================================================================================" << endl;
+    cout << "=================================================================================================" << endl;
 }
+
 
 void saveReport(const vector<Event>& events, const vector<Venue>& venues, const vector<Ticket>& tickets) {
     ofstream fout("Report.txt");//Open File writing

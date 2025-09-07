@@ -138,7 +138,6 @@ void purchaseTicket(const vector<Event>& events, const vector<Venue>& venues, ve
         return;
     }
 
-    // Display available events
     cout << "\n============================================================================================================\n";
     cout << "|                                         AVAILABLE EVENTS                                                |\n";
     cout << "============================================================================================================\n";
@@ -263,7 +262,6 @@ void purchaseTicket(const vector<Event>& events, const vector<Venue>& venues, ve
     tickets.push_back(t);
     saveTickets(tickets, "tickets.txt");
 
-    // Display receipt
     cout << "\n==================== TICKET RECEIPT ====================\n";
     cout << left << setw(18) << "Customer Name" << ": " << t.custName << "\n";
     cout << left << setw(18) << "Phone Number" << ": " << t.custPhone << "\n";
@@ -279,7 +277,7 @@ void purchaseTicket(const vector<Event>& events, const vector<Venue>& venues, ve
 }
 
 void viewTickets(const vector<Ticket>& tickets) {
-    cin.ignore(); // Clear leftover newline
+    cin.ignore();
 
     string name, phone;
 
@@ -309,7 +307,6 @@ void viewTickets(const vector<Ticket>& tickets) {
 
     bool found = false;
 
-    // Display Ticket List
     cout << "\n================================================================================================================\n";
     cout << "|                                             Your Ticket List                                                 |\n";
     cout << "================================================================================================================\n";
@@ -344,4 +341,95 @@ void viewTickets(const vector<Ticket>& tickets) {
     }
 
     cout << "================================================================================================================\n";
+}
+
+void refundTicket(vector<Ticket>& tickets) {
+    cin.ignore();
+
+    string name, phone;
+
+    // Name input and validation
+    cout << "Enter your name: ";
+    getline(cin, name);
+    while (!isValidName(name)) {
+        cout << "Invalid name. Please enter again: ";
+        getline(cin, name);
+    }
+
+    // Phone input and validation
+    cout << "Enter your phone number (E.g. 0123456789): ";
+    getline(cin, phone);
+    while (!isValidPhone(phone)) {
+        cout << "Invalid phone number. Please enter again: ";
+        getline(cin, phone);
+    }
+
+    // Convert input to lowercase for comparison
+    for (size_t i = 0; i < name.length(); ++i) name[i] = tolower(name[i]);
+    for (size_t i = 0; i < phone.length(); ++i) phone[i] = tolower(phone[i]);
+
+    // Find matching tickets
+    vector<int> matchingTickets;
+    for (size_t i = 0; i < tickets.size(); ++i) {
+        string storedName = tickets[i].custName;
+        string storedPhone = tickets[i].custPhone;
+        for (size_t j = 0; j < storedName.length(); ++j) storedName[j] = tolower(storedName[j]);
+        for (size_t j = 0; j < storedPhone.length(); ++j) storedPhone[j] = tolower(storedPhone[j]);
+        if (storedName == name && storedPhone == phone && tickets[i].paid) {
+            matchingTickets.push_back(i);
+        }
+    }
+
+    if (matchingTickets.empty()) {
+        cout << "No paid tickets found for the provided details.\n";
+        return;
+    }
+
+    cout << "\n================================================================================================================\n";
+    cout << "| No | Ticket ID  | Event Name              | Date        | Venue               |\n";
+    cout << "----------------------------------------------------------------------------------------------------------------\n";
+    for (size_t idx = 0; idx < matchingTickets.size(); ++idx) {
+        const Ticket& t = tickets[matchingTickets[idx]];
+        cout << "| " << setw(2) << (idx + 1)
+            << " | " << setw(10) << t.ticketId
+            << " | " << setw(22) << t.eventName
+            << " | " << setw(11) << t.eventDate
+            << " | " << setw(19) << t.hallName
+            << " |\n";
+    }
+    cout << "================================================================================================================\n";
+
+    // Select ticket to refund
+    int choice = -1;
+    while (true) {
+        cout << "Enter ticket number to refund (1-" << matchingTickets.size() << ", 0 to cancel): ";
+        cin >> choice;
+        if (cin.fail() || choice < 0 || choice >(int)matchingTickets.size()) {
+            cin.clear();
+            cin.ignore(10000, '\n');
+            cout << "Invalid input. Please enter a valid number.\n";
+        } else {
+            break;
+        }
+    }
+    if (choice == 0) {
+        cout << "Refund cancelled.\n";
+        return;
+    }
+
+    int ticketIdx = matchingTickets[choice - 1];
+
+    string confirm;
+    cout << "Please enter 'CONFIRM' to proceed with refund: ";
+    cin >> confirm;
+    if (confirm != "CONFIRM") {
+        cout << "Confirmation not confirmed. Returning...\n";
+        return;
+    }
+
+    cout << "\nProcessing refund for ticket ID: " << tickets[ticketIdx].ticketId << "...\n";
+    cout << "Refund successful. Ticket deleted.\n";
+
+    tickets.erase(tickets.begin() + ticketIdx);
+    saveTickets(tickets, "tickets.txt");
 }

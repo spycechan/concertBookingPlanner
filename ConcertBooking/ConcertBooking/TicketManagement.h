@@ -28,5 +28,6 @@ void purchaseTicket(const vector<Event>& events, const vector<Venue>& venues, ve
 void viewTickets(const vector<Ticket>& tickets);
 int getVenueCapacity(const vector<Event>& events, const vector<Venue>& venues, const string& eventName);
 int countTicketsSold(const vector<Ticket>& tickets, const string& eventName);
+void refundTicket(vector<Ticket>& tickets);
 
 #endif

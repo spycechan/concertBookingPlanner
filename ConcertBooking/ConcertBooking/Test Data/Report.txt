@@ -1,0 +1,74 @@
+================= Event Report =================
+
+Event Name   : Night Pulse
+Organizer    : JONATHAN
+Date         : 2025-09-10
+Time         : 18:00 - 23:00
+Hall         : Starhall Arena
+Ticket Price : 100
+Tickets Sold : 2
+Revenue      : 200
+---------------------------------------------
+Event Name   : Echo Lights
+Organizer    : JONATHAN
+Date         : 2025-09-15
+Time         : 09:00 - 17:00
+Hall         : Starhall Arena
+Ticket Price : 200
+Tickets Sold : 1
+Revenue      : 200
+---------------------------------------------
+Event Name   : Sonic Bloom
+Organizer    : DIMITRI
+Date         : 2025-09-20
+Time         : 09:00 - 17:00
+Hall         : Echo Done
+Ticket Price : 150
+Tickets Sold : 1
+Revenue      : 150
+---------------------------------------------
+Event Name   : Rhythm Riot
+Organizer    : DIMITRI
+Date         : 2025-09-23
+Time         : 18:00 - 23:00
+Hall         : Pulse Pavillion
+Ticket Price : 100
+Tickets Sold : 1
+Revenue      : 100
+---------------------------------------------
+Event Name   : Vibe Junction
+Organizer    : DARREN
+Date         : 2025-09-26
+Time         : 09:00 - 17:00
+Hall         : Echo Done
+Ticket Price : 250
+Tickets Sold : 1
+Revenue      : 250
+---------------------------------------------
+Event Name   : Harmony Rush
+Organizer    : DARREN
+Date         : 2025-09-30
+Time         : 18:00 - 23:00
+Hall         : Pulse Pavillion
+Ticket Price : 200
+Tickets Sold : 1
+Revenue      : 200
+---------------------------------------------
+Event Name   : Livewire
+Organizer    : EVEN
+Date         : 2025-10-01
+Time         : 18:00 - 23:00
+Hall         : Echo Done
+Ticket Price : 200
+Tickets Sold : 0
+Revenue      : 0
+---------------------------------------------
+Event Name   : Beatstorm
+Organizer    : EVEN
+Date         : 2025-10-10
+Time         : 09:00 - 17:00
+Hall         : Rythm Square
+Ticket Price : 200
+Tickets Sold : 1
+Revenue      : 200
+---------------------------------------------

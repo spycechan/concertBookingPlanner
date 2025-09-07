@@ -1,15 +1,48 @@
-Setia Spice
-108C, Jalan Tun Dr Awang, Bayan Baru, 11900 Bayan Lepas, Pulau Pinang
-2
-200
+V001
+KL Arena
+210, Jalan Ayer Jerneh, Mukim, Setapak, 53200 Kuala Lumpur
+800
+3999
 1
-Queensbay Mall
-100, Persiaran Bayan Indah, 11900 Bayan Lepas, Pulau Pinang
-100
-150
+V002
+Axiata Arena
+L2-E-10, Enterprise 4, Technology Park Malaysia, Lebuhraya Bukit Jalil, Bukit Jalil, 57000 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur
+800
+3999
 1
-Sunway Carnival Mall
-1F-K01 Sunway Carnival Mall 3068, Jalan Todak Pusat Bandar Seberang Jaya, 13700 Perai, Penang
-200
-300
+V003
+Mega Star Arena
+1F, Mega star arena, kl @ Sg wang plaza, 3, Jalan Bulan 2, Bukit Bintang, 55100 Kuala Lumpur, Federal Territory of Kuala Lumpur
+800
+7999
+1
+V004
+UM Arena
+833, Lingkungan Budi, 50603 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur
+800
+5999
+1
+V005
+Sports Arena
+Jalan Layang - Layang 1, Bandar Puchong Jaya, 47170 Puchong, Selangor
+800
+10999
+1
+V006
+Portland Arena
+39, Jalan Juruanalisis U1/35, Hicom-glenmarie Industrial Park, 40150 Shah Alam, Selangor
+800
+4999
+1
+V007
+Pavillion Arena
+Pusat Bandar Damansara, Bangsar, 50490 Kuala Lumpur, Federal Territory of Kuala Lumpur
+800
+6999
+1
+V008
+Pavillion Arena
+Pusat Bandar Damansara, Bangsar, 50490 Kuala Lumpur, Federal Territory of Kuala Lumpur
+800
+6999
 1
